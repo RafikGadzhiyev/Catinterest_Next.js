@@ -10,7 +10,7 @@ export const CatsList: React.FC<{ isFav: boolean }> = memo(({ isFav }) => {
     const store: ReduxMainStore = useSelector((store: ReduxMainStore) => store);
 
     return <CatsListContainer>
-        {!isFav &&
+        {!isFav && store.cats !== null &&
             store.cats.map((e: ICat) => <Cat
                 key={uuidv4()}
                 id={e.id}
@@ -23,7 +23,7 @@ export const CatsList: React.FC<{ isFav: boolean }> = memo(({ isFav }) => {
             />)
         }
         {
-            isFav && store.favoriteCats.length > 0 && store.favoriteCats.map((e: ICat) => {
+            isFav && store.favoriteCats !== null > 0 && store.favoriteCats.map((e: ICat) => {
                 return <Cat
                     key={uuidv4()}
                     id={e.id}
