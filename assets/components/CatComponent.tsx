@@ -13,7 +13,7 @@ export const Cat: React.FC<CatItemProps> = memo((props) => {
     const dispatch: Dispatch<any> = useDispatch();
 
     const ChangeIconState = (e: React.SyntheticEvent, newState: string, catId: string) => {
-        if (store.favoriteCats.some((e: ICat) => e.id === catId)) return;
+        if (store.favoriteCats !== null && store.favoriteCats.some((e: ICat) => e.id === catId)) return;
         let element: HTMLElement = e.target as HTMLElement;
         if (element.tagName !== "BUTTON") {
             element = element.closest('button') as HTMLElement;
@@ -32,8 +32,7 @@ export const Cat: React.FC<CatItemProps> = memo((props) => {
 
 
     const AddToFavorites = useCallback((e: React.SyntheticEvent, cat: ICat) => {
-        const IDS = store.favoriteCats.map((e: ICat) => e.id);
-        if (IDS.includes(cat.id)) {
+        if (store.favoriteCats !== null && store.favoriteCats.some((e: ICat) => e.id === cat.id)) {
             ChangeIconState(e, 'bi bi-heart', cat.id);
             if (props.isFav) {
                 dispatch(RemoveFavorite(cat));
@@ -66,10 +65,12 @@ export const Cat: React.FC<CatItemProps> = memo((props) => {
                 })}
             >
                 {
+                    store.favoriteCats !== null &&
                     !store.favoriteCats.some((e: ICat) => e.id === props.id) &&
                     <i className="bi bi-heart"></i>
                 }
                 {
+                    store.favoriteCats !== null &&
                     store.favoriteCats.some((e: ICat) => e.id === props.id) &&
                     <i className="bi bi-heart-fill active"></i>
                 }

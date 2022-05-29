@@ -28,21 +28,21 @@ export const MainReducer = (store: ReduxMainStore | undefined, action: ActionWit
             }
         case "ADD_TO_FAVORITES":
             if (store && action.payload.cat) {
-                const updatedData: Array<ICat> = Array.from(new Set([...store.favoriteCats, action.payload.cat]));
+                const updatedData: Array<ICat> = Array.from(new Set([...(store.favoriteCats || []), action.payload.cat]));
                 localStorage.setItem('favCats', JSON.stringify(updatedData))
                 store.favoriteCats = updatedData;
                 return store;
             }
         case "REMOVE_FAVORITE_CAT_FROM_STORAGE":
             if (store && action.payload.cat) {
-                const updatedData: Array<ICat> = store.favoriteCats.filter((e: ICat) => e.id !== action.payload.cat?.id);
+                const updatedData: Array<ICat> = (store.favoriteCats && store.favoriteCats.filter((e: ICat) => e.id !== action.payload.cat?.id)) || [];
                 localStorage.setItem('favCats', JSON.stringify(updatedData))
                 store.favoriteCats = updatedData;
                 return store;
             }
         case "REMOVE_FAVORITE_CAT":
             if (store && action.payload.cat) {
-                const updatedData: Array<ICat> = store.favoriteCats.filter((e: ICat) => e.id !== action.payload.cat?.id);
+                const updatedData: Array<ICat> = (store.favoriteCats && store.favoriteCats.filter((e: ICat) => e.id !== action.payload.cat?.id)) || [];
                 localStorage.setItem('favCats', JSON.stringify(updatedData))
                 return {
                     cats: store.cats,

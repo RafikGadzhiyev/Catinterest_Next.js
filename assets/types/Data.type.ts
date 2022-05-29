@@ -12,5 +12,5 @@ export interface ICat {
 
 export type ReduxMainStore = {
     cats: Array<ICat>,
-    favoriteCats: Array<ICat>
+    favoriteCats: Array<ICat> | null
 }
