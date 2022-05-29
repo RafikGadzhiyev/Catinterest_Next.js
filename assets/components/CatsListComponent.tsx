@@ -23,7 +23,7 @@ export const CatsList: React.FC<{ isFav: boolean }> = memo(({ isFav }) => {
             />)
         }
         {
-            isFav && store.favoriteCats.length > 0 && store.favoriteCats.map((e: ICat) => {
+            isFav && store.favoriteCats !== null && store.favoriteCats.map((e: ICat) => {
                 return <Cat
                     key={uuidv4()}
                     id={e.id}
